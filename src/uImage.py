@@ -1,6 +1,5 @@
 from PIL import Image
 from pytesseract import image_to_string
-import json
 import csv
 # Random Testing - Ignore
 # im = Image.open("testfile.png")
@@ -51,6 +50,7 @@ def processImage(imageBlueprint,fileName):
         while(counter < maxLength):
             for header in csvHeaders:
                 if(counter < len(imageBlueprint.subSections[header])):
+
                     csvText.append(imageBlueprint.subSections[header][counter])
                 else:
                     csvText.append("")
