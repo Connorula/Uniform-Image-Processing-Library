@@ -1,5 +1,5 @@
 # Uniform-Image-Processing-Library
-A Python library which facilitates the processing of images with a uniform layout (e.g. calendars, schedules, etc.) and inputting their data into a csv data file.
+A Python library which facilitates the processing of images with a uniform layout (e.g. calendars, schedules, etc.) and inputs their data into a csv data file.
 
 Dependencies:
 You will need to import the Python Image Library (PIL), Tesseract, PyTesseract, and CSV.
