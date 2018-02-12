@@ -13,3 +13,4 @@ Possible Changes:
   - Possibly, add the ability to define which subsections correspond to headers and which correspond to the headers data.
   - Add a section which processes the color of the subsection and does something accordingly
   - Test if handwritten files work
+  - Or, come up with anything you think would be useful (different outputs, added functionality, etc.) This project is still in its early stages, so don't be afraid to contribute something drastically different!
