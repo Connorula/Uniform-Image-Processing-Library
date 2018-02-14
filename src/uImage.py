@@ -48,18 +48,34 @@ class uImageBlueprint(object):
 
     def findSectionsLines(self):
         img = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
-        print(img)
+        img2 = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
         imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         ret, thresh = cv2.threshold(imgray, 127, 255, 0)
         im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        perimeter = np.arange(len(contours))
         counter = 0
         for cnt in contours:
-            # print(M)
+            perimeter[counter] = cv2.arcLength(cnt,True)
+            if perimeter[counter] > 500:
+                print(perimeter[counter])
             counter+=1
-            perimeter = cv2.arcLength(cnt,True)
-            if perimeter > 500:
-                print(perimeter)
         print(counter)
+        counter2 = 0
+        for x in range(len(contours)):
+            if perimeter[x] > 700 and perimeter[x] < 1000:
+                counter2+=1
+                cv2.drawContours(img2, contours, x, (0,255,0), 10)
+        period_coordinates = np.ones((counter2,4))
+        for x in range(counter2):
+            print(contours[x])
+            print(contours[x][0])
+            period_coordinates[x][0] = contours[x][0]
+            period_coordinates[x][1] = contours[x][1]
+            period_coordinates[x][2] = contours[x][2]
+            period_coordinates[x][3] = contours[x][3]
+        print(period_coordinates)
+        showimg = Image.fromarray(img2, 'RGB')
+        showimg.save(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\periods.png')
         # gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         # edges = cv2.Canny(gray,50,150,apertureSize = 3)
         # found_lines = cv2.HoughLines(edges,1,np.pi/180,100)
@@ -81,7 +97,8 @@ class uImageBlueprint(object):
     #     # hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     #     # lower_range = np.array([178, 179, 0])
     #     # upper_range = np.array([255, 255, 255])
-
+    def readSectionContents():
+        return "Work in Progress"
     def addSection(self, x1, y1, x2, y2, name):
         try:
             self.subSections[name].append([x1,y1,x2,y2])
@@ -130,5 +147,5 @@ test.findSectionsLines()
 # test.addSection(0,0,1,1,"mathClass")
 # test.addSection(2,2,3,3,"class")
 # test.addSection(4,4,5,5,"mathClass")
-processImage(test,"scheduletest.png")
+# processImage(test,"scheduletest.png")
 # print(test.subSections)
