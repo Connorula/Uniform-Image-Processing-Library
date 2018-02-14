@@ -47,16 +47,18 @@ class uImageBlueprint(object):
     #     return (x, y)
 
     def findSectionsLines(self):
-        img = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png', 1)
+        img = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
         print(img)
-        ret,thresh = cv2.threshold(img,127,255,0)
-        im2, contours, hierarchy = cv2.findContours(thresh,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
+        imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        ret, thresh = cv2.threshold(imgray, 127, 255, 0)
+        im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         counter = 0
         for cnt in contours:
-            M = cv2.moments(cnt)
             # print(M)
             counter+=1
             perimeter = cv2.arcLength(cnt,True)
+            if perimeter > 500:
+                print(perimeter)
         print(counter)
         # gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
         # edges = cv2.Canny(gray,50,150,apertureSize = 3)
