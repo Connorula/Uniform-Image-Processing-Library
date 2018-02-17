@@ -46,7 +46,7 @@ class uImageBlueprint(object):
     #     y = a1 * x + b1
     #     return (x, y)
 
-    def findSectionsLines(self):
+    def findSections(self):
         img = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
         img2 = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
         imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -65,33 +65,19 @@ class uImageBlueprint(object):
             if perimeter[x] > 700 and perimeter[x] < 1000:
                 counter2+=1
                 cv2.drawContours(img2, contours, x, (0,255,0), 10)
-        period_coordinates = np.ones((counter2,4))
+        period_coordinates = []
         for x in range(counter2):
             print(contours[x])
             print(contours[x][0])
-            period_coordinates[x][0] = contours[x][0]
-            period_coordinates[x][1] = contours[x][1]
-            period_coordinates[x][2] = contours[x][2]
-            period_coordinates[x][3] = contours[x][3]
-        print(period_coordinates)
+            period_coordinates.append([])
+            period_coordinates[x].append(contours[x][0])
+            period_coordinates[x].append(contours[x][2])
+            period_coordinates[x].append(contours[x][1])
+            period_coordinates[x].append(contours[x][3])
         showimg = Image.fromarray(img2, 'RGB')
         showimg.save(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\periods.png')
-        # gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-        # edges = cv2.Canny(gray,50,150,apertureSize = 3)
-        # found_lines = cv2.HoughLines(edges,1,np.pi/180,100)
-        # lines = np.arrange([found_lines.length, 4])
-        # for rho,theta in found_lines[0]:
-        #     int counter = 0;
-        #     a = np.cos(theta)
-        #     b = np.sin(theta)
-        #     x0 = a*rho
-        #     y0 = b*rho
-        #     x1 = int(x0 + 1000*(-b))
-        #     lines[counter][]
-        #     y1 = int(y0 + 1000*(a))
-        #     x2 = int(x0 - 1000*(-b))
-        #     y2 = int(y0 - 1000*(a))
-
+        for x in range(len(period_coordinates)):
+            self.addSection(period_coordinates[x], str(x))
 
     # def findSectionsColors(self):
     #     # hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -99,19 +85,20 @@ class uImageBlueprint(object):
     #     # upper_range = np.array([255, 255, 255])
     def readSectionContents():
         return "Work in Progress"
-    def addSection(self, x1, y1, x2, y2, name):
+
+    def addSection(self, coordinates, name):
         try:
-            self.subSections[name].append([x1,y1,x2,y2])
+            self.subSections[name].append(coordinates)
 
         except KeyError:
             self.subSections[name] = []
-            self.subSections[name].append([x1,y1,x2,y2])
+            self.subSections[name].append(coordinates)
 
     def __init__(self, imageTypeName, fileType):
         self.imageTypeName = imageTypeName
         self.fileType = fileType
 
-    def processImage(imageBlueprint,fileName):
+    def processImage(self,fileName):
         image = Image.open(fileName)
         pix = image.load()
         size = image.size
@@ -122,20 +109,20 @@ class uImageBlueprint(object):
 
         with open('text.csv', "w") as csv_file:
             writer = csv.writer(csv_file, delimiter=',')
-            for key in imageBlueprint.subSections:
+            for key in self.subSections:
                 csvHeaders.append(key)
 
             writer.writerow(csvHeaders)
 
             for header in csvHeaders:
-                if (len(imageBlueprint.subSections[header]) > maxLength):
-                    maxLength = len(imageBlueprint.subSections[header])
+                if (len(self.subSections[header]) > maxLength):
+                    maxLength = len(self.subSections[header])
 
             while(counter < maxLength):
                 for header in csvHeaders:
-                    if(counter < len(imageBlueprint.subSections[header])):
+                    if(counter < len(self.subSections[header])):
 
-                        csvText.append(imageBlueprint.subSections[header][counter])
+                        csvText.append(self.subSections[header][counter])
                     else:
                         csvText.append("")
                 writer.writerow(csvText)
@@ -143,9 +130,6 @@ class uImageBlueprint(object):
                 counter = counter + 1
 
 test = uImageBlueprint("Connor","png")
-test.findSectionsLines()
-# test.addSection(0,0,1,1,"mathClass")
-# test.addSection(2,2,3,3,"class")
-# test.addSection(4,4,5,5,"mathClass")
-# processImage(test,"scheduletest.png")
-# print(test.subSections)
+test.findSections()
+test.processImage("scheduletest.png")
+print(test.subSections)
