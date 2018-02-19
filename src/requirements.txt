@@ -1,0 +1,5 @@
+pil
+tesseract
+pytesseract
+skimage
+matplotlib
