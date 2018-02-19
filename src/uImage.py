@@ -2,12 +2,13 @@ from PIL import Image
 from pytesseract import image_to_string
 import csv
 # Random Testing - Ignore
-# im = Image.open("testfile.png")
+im = Image.open("scheduletest.png")
+im2 = im.crop((0,489,240,636))
 # pix = im.load()
 # print(im.size)
 # print(pix[10,10])
-# myText = image_to_string(Image.open("readertest.png"))
-# print(myText)
+myText = image_to_string(im2)
+print(myText)
 
 class uImageBlueprint(object):
     imageTypeName = ""
@@ -58,9 +59,9 @@ def processImage(imageBlueprint,fileName):
             csvText = []
             counter = counter + 1
 
-test = uImageBlueprint("Connor","png")
-test.addSection(0,0,1,1,"mathClass")
-test.addSection(2,2,3,3,"class")
-test.addSection(4,4,5,5,"mathClass")
-processImage(test,"scheduletest.png")
+# test = uImageBlueprint("Connor","png")
+# test.addSection(0,0,1,1,"mathClass")
+# test.addSection(2,2,3,3,"class")
+# test.addSection(4,4,5,5,"mathClass")
+# processImage(test,"scheduletest.png")
 # print(test.subSections)
