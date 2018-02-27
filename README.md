@@ -6,7 +6,7 @@ Essentially, the user creates a uImageBlueprint object, which serves as the base
 
 ## Dependencies:
 You will need to import the Python Image Library (PIL), Tesseract, PyTesseract, OpenCV, Numpy, and Pathlib.
-It's a little complicated to install Tesseract on Macs, but here's a very simple and easy to follow guide (it only involves a few command line prompts): http://benschmidt.org/dighist13/?page_id=129
+It's a little complicated to install Tesseract on Macs, but here's a very simple and easy to follow guide (only go up to 'brew install tesseract' in Step 3): http://benschmidt.org/dighist13/?page_id=129
 
 ## Current Status:
 Currently, I've created a blueprint object which holds all the subdivisions and their coordinates (called subsections) of the uniform image. I've also created a function which takes in the blueprint and an image file, which then processes the contents of each subsection and inputs them into a csv file (unfinished).
