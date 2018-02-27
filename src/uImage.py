@@ -6,6 +6,7 @@ import sys
 from math import *
 import numpy as np
 from pathlib import Path
+import os
 
 class uImageBlueprint(object):
     imageTypeName = ""
@@ -162,10 +163,8 @@ class uImageBlueprint(object):
         maxLength = 1
         counter = 0
 
-
         my_file = Path(csvFile)
         if my_file.is_file():
-            print("File exists")
             with open(csvFile, "a") as csv_file:
                 writer = csv.writer(csv_file, delimiter=',')
                 for key in self.subSections:
@@ -187,7 +186,6 @@ class uImageBlueprint(object):
                     counter = counter + 1
 
         else:
-            print("New file")
             with open(csvFile, "w") as csv_file:
                 writer = csv.writer(csv_file, delimiter=',')
                 for key in self.subSections:
@@ -210,21 +208,24 @@ class uImageBlueprint(object):
                     csvText = []
                     counter = counter + 1
 
+    def readFolder(self,csvFile, path):
+        folder = os.listdir( str(os.getcwd() + path) )
+        for files in folder:
+            if files[-(len(self.fileType)):] == self.fileType:
+                print(files)
+                print(str(os.getcwd() + "/" + files))
+                self.processImage(str(os.getcwd() + path + "/" + files),csvFile)
+
 test = uImageBlueprint("PASchedule","png")
 # test.addSection([0,0,1,1],"bio")
 # test.addSection([1,1,2,2],"bio")
 test.addSection([500,2271,989,2578],"comp sci")
 test.addSection([0,1325,495,1650],"mathClass")
-# processImage(test,"scheduletest.png")
-# print(test.subSections)
-
-# test = uImageBlueprint("Connor","png")
 # test.findSections("scheduletest.png",127,30000)
-# test.processImage("scheduletest.png")
-print(test.subSections)
 # test.removeSection(["bio","comp sci"],[5])
 # print(test.subSections)
-test.renameSection("bio","comp sci")
+# test.renameSection("bio","comp sci")
 print(test.subSections)
 print(test.getSectionText("comp sci","scheduletest.png",0))
 test.processImage("scheduletest.png","text.csv")
+test.readFolder("newTest.csv", "/asdf")
