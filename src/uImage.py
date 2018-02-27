@@ -5,12 +5,6 @@ import cv2
 import sys
 from math import *
 import numpy as np
-from skimage.transform import (hough_line, hough_line_peaks,
-                               probabilistic_hough_line)
-from skimage.feature import canny
-from skimage import data
-import matplotlib.pyplot as plt
-from matplotlib import cm
 
 class uImageBlueprint(object):
     imageTypeName = ""
@@ -38,6 +32,7 @@ class uImageBlueprint(object):
     #     return (x, y)
 
     def findSections(self,fileName,threshold,boxArea):
+        self.subSections = {}
         img = cv2.imread(str(fileName))
         imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         #2nd argument is 240 for iCalendar
@@ -47,7 +42,6 @@ class uImageBlueprint(object):
         counter = 0
         counterHeader = 0
         for cnt in contours:
-            # print(cv2.arcLength(cnt,True))
             if(cv2.contourArea(cnt) > boxArea):
                 coord = [cnt[0][0][0],cnt[0][0][1],cnt[2][0][0],cnt[2][0][1]]
                 if(coord[2] - coord[0] > 10 and coord[3] - coord[1] > 10):
@@ -81,12 +75,15 @@ class uImageBlueprint(object):
     #     # upper_range = np.array([255, 255, 255])
 
     def addSection(self, coordinates, name):
-        try:
-            self.subSections[name].append(coordinates)
+        if coordinates[2] - coordinates[0] > 0 and coordinates[3] - coordinates[1] > 0:
+            try:
+                self.subSections[name].append(coordinates)
 
-        except KeyError:
-            self.subSections[name] = []
-            self.subSections[name].append(coordinates)
+            except KeyError:
+                self.subSections[name] = []
+                self.subSections[name].append(coordinates)
+        else:
+            print("Invalid coordinates")
 
     def removeSection(self, headerName, index):
         newSubSections = {}
@@ -121,10 +118,30 @@ class uImageBlueprint(object):
         self.subSections = newSubSections
 
     def renameSection(self, headerName, newHeaderName):
-        #Careful, easy to replace another key in dictionary if newHeaderName already exists
         try:
-            self.subSections[newHeaderName] = self.subSections.pop(headerName)
+            if newHeaderName not in self.subSections:
+                self.subSections[newHeaderName] = self.subSections.pop(headerName)
+            else:
+                for coord in self.subSections[headerName]:
+                    self.subSections[newHeaderName].append(coord)
+                self.subSections.pop(headerName)
         except KeyError:
+            return None
+
+    def getSectionText(self, headerName, fileName, index):
+        try:
+            image = Image.open(fileName)
+            im4 = image.crop((self.subSections[headerName][index][0],self.subSections[headerName][index][1],self.subSections[headerName][index][2],self.subSections[headerName][index][3]))
+            text = image_to_string(im4)
+            return text
+        except FileNotFoundError:
+            print("File not found.")
+            return None
+        except KeyError:
+            print("Dictionary does not contain this key")
+            return None
+        except IndexError:
+            print("Index out of range")
             return None
 
     def __init__(self, imageTypeName, fileType):
@@ -132,7 +149,11 @@ class uImageBlueprint(object):
         self.fileType = fileType
 
     def processImage(self,fileName):
-        image = Image.open(fileName)
+        try:
+            image = Image.open(fileName)
+        except FileNotFoundError:
+            print("File not found.")
+            return None
         pix = image.load()
         size = image.size
         csvHeaders = []
@@ -154,28 +175,29 @@ class uImageBlueprint(object):
             while(counter < maxLength):
                 for header in csvHeaders:
                     if(counter < len(self.subSections[header])):
-                        im2 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
-                        csvText.append(image_to_string(im2))
+                        im3 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
+                        csvText.append(image_to_string(im3))
                     else:
                         csvText.append("")
                 writer.writerow(csvText)
                 csvText = []
                 counter = counter + 1
 
-test = uImageBlueprint("Connor","png")
-# test.addSection([0,0,0,0],"bio")
-# test.addSection([1,1,1,1],"bio")
-# test.addSection([477,789,711,936],"comp sci")
-# test.addSection([4,4,5,5],"mathClass")
+test = uImageBlueprint("PASchedule","png")
+test.addSection([0,0,1,1],"bio")
+test.addSection([1,1,2,2],"bio")
+test.addSection([500,2271,989,2578],"comp sci")
+test.addSection([4,4,5,5],"mathClass")
 # processImage(test,"scheduletest.png")
 # print(test.subSections)
 
 # test = uImageBlueprint("Connor","png")
-test.findSections("scheduletest.png",127,30000)
+# test.findSections("scheduletest.png",127,30000)
 # test.processImage("scheduletest.png")
 print(test.subSections)
 # test.removeSection(["bio","comp sci"],[5])
 # print(test.subSections)
-# test.renameSection("bio","comp sci")
-# print(test.subSections)
+test.renameSection("bio","comp sci")
+print(test.subSections)
+print(test.getSectionText("comp sci","scheduletest.png",0))
 # test.processImage("scheduletest.png")
