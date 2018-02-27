@@ -12,16 +12,6 @@ from skimage import data
 import matplotlib.pyplot as plt
 from matplotlib import cm
 
-
-# Random Testing - Ignore
-im = Image.open("scheduletest.png")
-im2 = im.crop((0,489,240,636))
-# pix = im.load()
-# print(im.size)
-# print(pix[10,10])
-myText = image_to_string(im2)
-print(myText)
-
 class uImageBlueprint(object):
     imageTypeName = ""
     fileType = ""
@@ -47,45 +37,48 @@ class uImageBlueprint(object):
     #     y = a1 * x + b1
     #     return (x, y)
 
-    def findSections(self):
-        img = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
-        img2 = cv2.imread(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\scheduletest.png')
+    def findSections(self,fileName,threshold,boxArea):
+        img = cv2.imread(str(fileName))
         imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        ret, thresh = cv2.threshold(imgray, 127, 255, 0)
-        im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-        perimeter = np.arange(len(contours))
+        #2nd argument is 240 for iCalendar
+        #2nd argument is 127 for PA Schedules
+        ret,thresh = cv2.threshold(imgray,threshold,255,0)
+        im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, 4)
         counter = 0
+        counterHeader = 0
         for cnt in contours:
-            perimeter[counter] = cv2.arcLength(cnt,True)
-            if perimeter[counter] > 500:
-                print(perimeter[counter])
+            # print(cv2.arcLength(cnt,True))
+            if(cv2.contourArea(cnt) > boxArea):
+                coord = [cnt[0][0][0],cnt[0][0][1],cnt[2][0][0],cnt[2][0][1]]
+                if(coord[2] - coord[0] > 10 and coord[3] - coord[1] > 10):
+                    self.addSection(coord,counterHeader)
+                    img = cv2.drawContours(img, contours, counter, (0,255,0), 10)
+                    cv2.rectangle(img,(coord[0],coord[1]),(coord[0]+5,coord[1]+5),(255,0,0),3)
+                    cv2.rectangle(img,(coord[2],coord[3]),(coord[2]+5,coord[3]+5),(0,0,255),3)
+                    middleCoord = (int((coord[0] + coord[2])/2),int((coord[1]+coord[3])/2))
+                    cv2.putText(img,str(counterHeader), middleCoord, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255)
+                    counterHeader += 1
+                elif coord[2] - coord[0] > 0 and coord[3] - coord[1] > 0:
+                    extLeft = tuple(cnt[cnt[:, :, 0].argmin()][0])
+                    extRight = tuple(cnt[cnt[:, :, 0].argmax()][0])
+                    extTop = tuple(cnt[cnt[:, :, 1].argmin()][0])
+                    extBot = tuple(cnt[cnt[:, :, 1].argmax()][0])
+                    coord = [extLeft[0],extTop[1],extRight[0],extBot[1]]
+                    self.addSection(coord,counterHeader)
+                    img = cv2.drawContours(img, contours, counter, (0,255,0), 10)
+                    cv2.rectangle(img,(coord[0],coord[1]),(coord[0]+5,coord[1]+5),(255,0,0),3)
+                    cv2.rectangle(img,(coord[2],coord[3]),(coord[2]+5,coord[3]+5),(0,0,255),3)
+                    middleCoord = (int((coord[0] + coord[2])/2),int((coord[1]+coord[3])/2))
+                    cv2.putText(img,str(counterHeader), middleCoord, cv2.FONT_HERSHEY_SIMPLEX, 0.5, 255)
+                    counterHeader += 1
             counter+=1
-        print(counter)
-        counter2 = 0
-        for x in range(len(contours)):
-            if perimeter[x] > 700 and perimeter[x] < 1000:
-                counter2+=1
-                cv2.drawContours(img2, contours, x, (0,255,0), 10)
-        period_coordinates = []
-        for x in range(counter2):
-            print(contours[x])
-            print(contours[x][0])
-            period_coordinates.append([])
-            period_coordinates[x].append(contours[x][0])
-            period_coordinates[x].append(contours[x][2])
-            period_coordinates[x].append(contours[x][1])
-            period_coordinates[x].append(contours[x][3])
-        showimg = Image.fromarray(img2, 'RGB')
-        showimg.save(r'C:\Users\user\Documents\2017-2018 Academic Year\CSC-630W\Uniform-Image-Processing-Library\src\periods.png')
-        for x in range(len(period_coordinates)):
-            self.addSection(period_coordinates[x], str(x))
+        showimg = Image.fromarray(img, 'RGB')
+        showimg.save('test.png')
 
     # def findSectionsColors(self):
     #     # hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     #     # lower_range = np.array([178, 179, 0])
     #     # upper_range = np.array([255, 255, 255])
-    def readSectionContents():
-        return "Work in Progress"
 
     def addSection(self, coordinates, name):
         try:
@@ -94,6 +87,45 @@ class uImageBlueprint(object):
         except KeyError:
             self.subSections[name] = []
             self.subSections[name].append(coordinates)
+
+    def removeSection(self, headerName, index):
+        newSubSections = {}
+        popSubSections = []
+        if(index[0] == -1):
+            for header in self.subSections:
+                if header not in headerName:
+                    newSubSections[header] = []
+                    for values in self.subSections[header]:
+                        newSubSections[header].append(values)
+        else:
+            for header in self.subSections:
+                if header not in headerName:
+                    newSubSections[header] = []
+                    for values in self.subSections[header]:
+                        newSubSections[header].append(values)
+                else:
+                    newSubSections[header] = []
+                    indexCounter = 0
+                    for values in self.subSections[header]:
+                        if indexCounter not in index:
+                            newSubSections[header].append(values)
+                        indexCounter += 1
+
+        for header in newSubSections:
+            if len(newSubSections[header]) == 0:
+                popSubSections.append(header)
+
+        for header in popSubSections:
+            newSubSections.pop(header,None)
+
+        self.subSections = newSubSections
+
+    def renameSection(self, headerName, newHeaderName):
+        #Careful, easy to replace another key in dictionary if newHeaderName already exists
+        try:
+            self.subSections[newHeaderName] = self.subSections.pop(headerName)
+        except KeyError:
+            return None
 
     def __init__(self, imageTypeName, fileType):
         self.imageTypeName = imageTypeName
@@ -122,24 +154,28 @@ class uImageBlueprint(object):
             while(counter < maxLength):
                 for header in csvHeaders:
                     if(counter < len(self.subSections[header])):
-
-                        csvText.append(self.subSections[header][counter])
+                        im2 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
+                        csvText.append(image_to_string(im2))
                     else:
                         csvText.append("")
                 writer.writerow(csvText)
                 csvText = []
                 counter = counter + 1
 
-<<<<<<< HEAD
-# test = uImageBlueprint("Connor","png")
-# test.addSection(0,0,1,1,"mathClass")
-# test.addSection(2,2,3,3,"class")
-# test.addSection(4,4,5,5,"mathClass")
+test = uImageBlueprint("Connor","png")
+# test.addSection([0,0,0,0],"bio")
+# test.addSection([1,1,1,1],"bio")
+# test.addSection([477,789,711,936],"comp sci")
+# test.addSection([4,4,5,5],"mathClass")
 # processImage(test,"scheduletest.png")
 # print(test.subSections)
-=======
-test = uImageBlueprint("Connor","png")
-test.findSections()
-test.processImage("scheduletest.png")
+
+# test = uImageBlueprint("Connor","png")
+test.findSections("scheduletest.png",127,30000)
+# test.processImage("scheduletest.png")
 print(test.subSections)
->>>>>>> f4cafdab0de81ce03a9f2b77b5b3c997f5e8f4b0
+# test.removeSection(["bio","comp sci"],[5])
+# print(test.subSections)
+# test.renameSection("bio","comp sci")
+# print(test.subSections)
+# test.processImage("scheduletest.png")

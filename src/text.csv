@@ -1,2 +1,39 @@
-0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42
-"[array([[ 719, 1252]], dtype=int32), array([[ 718, 1256]], dtype=int32), array([[ 718, 1253]], dtype=int32), array([[ 719, 1257]], dtype=int32)]","[array([[ 952, 1240]], dtype=int32), array([[1187, 1389]], dtype=int32), array([[ 952, 1389]], dtype=int32), array([[1187, 1240]], dtype=int32)]","[array([[ 715, 1240]], dtype=int32), array([[ 715, 1247]], dtype=int32), array([[ 715, 1248]], dtype=int32), array([[ 718, 1244]], dtype=int32)]","[array([[ 860, 1290]], dtype=int32), array([[ 864, 1289]], dtype=int32), array([[ 861, 1289]], dtype=int32), array([[ 865, 1290]], dtype=int32)]","[array([[ 784, 1290]], dtype=int32), array([[ 789, 1289]], dtype=int32), array([[ 785, 1289]], dtype=int32), array([[ 790, 1290]], dtype=int32)]","[array([[ 828, 1285]], dtype=int32), array([[ 836, 1284]], dtype=int32), array([[ 829, 1284]], dtype=int32), array([[ 837, 1285]], dtype=int32)]","[array([[ 860, 1280]], dtype=int32), array([[ 864, 1279]], dtype=int32), array([[ 861, 1279]], dtype=int32), array([[ 865, 1280]], dtype=int32)]","[array([[ 784, 1280]], dtype=int32), array([[ 789, 1279]], dtype=int32), array([[ 785, 1279]], dtype=int32), array([[ 790, 1280]], dtype=int32)]","[array([[ 885, 1275]], dtype=int32), array([[ 891, 1274]], dtype=int32), array([[ 886, 1274]], dtype=int32), array([[ 894, 1277]], dtype=int32)]","[array([[ 888, 1278]], dtype=int32), array([[ 887, 1289]], dtype=int32), array([[ 887, 1279]], dtype=int32), array([[ 888, 1290]], dtype=int32)]","[array([[ 870, 1275]], dtype=int32), array([[ 877, 1274]], dtype=int32), array([[ 871, 1274]], dtype=int32), array([[ 880, 1277]], dtype=int32)]","[array([[ 847, 1275]], dtype=int32), array([[ 854, 1274]], dtype=int32), array([[ 848, 1274]], dtype=int32), array([[ 857, 1277]], dtype=int32)]","[array([[ 810, 1274]], dtype=int32), array([[ 820, 1275]], dtype=int32), array([[ 819, 1274]], dtype=int32), array([[ 820, 1278]], dtype=int32)]","[array([[ 795, 1275]], dtype=int32), array([[ 801, 1274]], dtype=int32), array([[ 796, 1274]], dtype=int32), array([[ 802, 1275]], dtype=int32)]","[array([[ 774, 1275]], dtype=int32), array([[ 778, 1274]], dtype=int32), array([[ 775, 1274]], dtype=int32), array([[ 779, 1275]], dtype=int32)]","[array([[ 240, 1240]], dtype=int32), array([[ 474, 1389]], dtype=int32), array([[ 240, 1389]], dtype=int32), array([[ 474, 1240]], dtype=int32)]","[array([[   2, 1240]], dtype=int32), array([[ 237, 1389]], dtype=int32), array([[   2, 1389]], dtype=int32), array([[ 237, 1240]], dtype=int32)]","[array([[ 952, 1090]], dtype=int32), array([[1187, 1237]], dtype=int32), array([[ 952, 1237]], dtype=int32), array([[1187, 1090]], dtype=int32)]","[array([[1099, 1223]], dtype=int32), array([[1105, 1222]], dtype=int32), array([[1100, 1222]], dtype=int32), array([[1106, 1223]], dtype=int32)]","[array([[1131, 1215]], dtype=int32), array([[1135, 1214]], dtype=int32), array([[1132, 1214]], dtype=int32), array([[1138, 1217]], dtype=int32)]","[array([[1120, 1214]], dtype=int32), array([[1127, 1217]], dtype=int32), array([[1124, 1214]], dtype=int32), array([[1127, 1227]], dtype=int32)]","[array([[1121, 1217]], dtype=int32), array([[1120, 1219]], dtype=int32), array([[1121, 1218]], dtype=int32), array([[1120, 1226]], dtype=int32)]","[array([[1112, 1214]], dtype=int32), array([[1114, 1215]], dtype=int32), array([[1113, 1214]], dtype=int32), array([[1114, 1229]], dtype=int32)]","[array([[1088, 1215]], dtype=int32), array([[1091, 1214]], dtype=int32), array([[1089, 1214]], dtype=int32), array([[1092, 1215]], dtype=int32)]","[array([[1075, 1215]], dtype=int32), array([[1077, 1214]], dtype=int32), array([[1076, 1214]], dtype=int32), array([[1078, 1215]], dtype=int32)]","[array([[1061, 1215]], dtype=int32), array([[1072, 1214]], dtype=int32), array([[1062, 1214]], dtype=int32), array([[1073, 1215]], dtype=int32)]","[array([[1050, 1214]], dtype=int32), array([[1059, 1217]], dtype=int32), array([[1056, 1214]], dtype=int32), array([[1059, 1219]], dtype=int32)]","[array([[1033, 1215]], dtype=int32), array([[1043, 1214]], dtype=int32), array([[1034, 1214]], dtype=int32), array([[1046, 1217]], dtype=int32)]","[array([[1036, 1217]], dtype=int32), array([[1042, 1220]], dtype=int32), array([[1036, 1220]], dtype=int32), array([[1042, 1218]], dtype=int32)]","[array([[1021, 1215]], dtype=int32), array([[1027, 1214]], dtype=int32), array([[1022, 1214]], dtype=int32), array([[1028, 1215]], dtype=int32)]","[array([[1023, 1217]], dtype=int32), array([[1020, 1224]], dtype=int32), array([[1020, 1220]], dtype=int32), array([[1023, 1227]], dtype=int32)]","[array([[1001, 1215]], dtype=int32), array([[1004, 1214]], dtype=int32), array([[1002, 1214]], dtype=int32), array([[1006, 1216]], dtype=int32)]","[array([[1045, 1199]], dtype=int32), array([[1047, 1198]], dtype=int32), array([[1046, 1198]], dtype=int32), array([[1048, 1199]], dtype=int32)]","[array([[1087, 1190]], dtype=int32), array([[1094, 1193]], dtype=int32), array([[1091, 1190]], dtype=int32), array([[1094, 1195]], dtype=int32)]","[array([[1088, 1193]], dtype=int32), array([[1091, 1194]], dtype=int32), array([[1087, 1194]], dtype=int32), array([[1090, 1193]], dtype=int32)]","[array([[1067, 1191]], dtype=int32), array([[1069, 1190]], dtype=int32), array([[1068, 1190]], dtype=int32), array([[1070, 1191]], dtype=int32)]","[array([[1100, 1188]], dtype=int32), array([[1102, 1187]], dtype=int32), array([[1101, 1187]], dtype=int32), array([[1103, 1188]], dtype=int32)]","[array([[1095, 1187]], dtype=int32), array([[1097, 1186]], dtype=int32), array([[1096, 1186]], dtype=int32), array([[1098, 1187]], dtype=int32)]","[array([[1081, 1186]], dtype=int32), array([[1085, 1187]], dtype=int32), array([[1084, 1186]], dtype=int32), array([[1085, 1188]], dtype=int32)]","[array([[1055, 1187]], dtype=int32), array([[1066, 1186]], dtype=int32), array([[1056, 1186]], dtype=int32), array([[1067, 1187]], dtype=int32)]","[array([[1030, 1187]], dtype=int32), array([[1033, 1186]], dtype=int32), array([[1031, 1186]], dtype=int32), array([[1034, 1187]], dtype=int32)]","[array([[1097, 1158]], dtype=int32), array([[1104, 1161]], dtype=int32), array([[1101, 1158]], dtype=int32), array([[1104, 1171]], dtype=int32)]","[array([[1098, 1161]], dtype=int32), array([[1097, 1163]], dtype=int32), array([[1098, 1162]], dtype=int32), array([[1097, 1170]], dtype=int32)]"
+0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46
+,,,"2:00 - 2:45
+080630
+N. Zufelt
+MORSEHL-103",,,,"2:00 - 2:45
+080630
+N. Zufelt
+MORSEHL-103",,,"7e
+12:30 - 1:00
+CSC630
+
+N. Zufelt
+MORSEHL—103",,1:05-1:50,12:10 - 12:55,,"11 :45 - 12:30
+030630
+N. Zufelt
+MORSEHL-103",,12:10 - 12:55,,,"10:50 - 11 :35
+All School
+Meeting",,,,,,,"10:10 - 10:40
+
+Conference",,"9:45 - 10:15
+Advising",,"9:45 - 10:15
+
+Conference","9:45 - 10:15
+
+Conference",,,,,"8:00 - 8:45
+HSS3OOB
+
+M. Villanueva
+SAM PHIL-201","8:00 - 8:45
+Department
+Meeting","8:00 - 8:45
+Hssaooa
+
+M. Villanueva
+SAMPHlL-201","8:00 - 8:45
+HSS300B
+
+M. \ﬁllanueva
+SAMPHlL-201",8:00 - 8:45,Friday,Thursday,Wednesday,Tuesday,Monday
