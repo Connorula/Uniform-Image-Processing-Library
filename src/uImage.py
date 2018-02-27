@@ -5,6 +5,7 @@ import cv2
 import sys
 from math import *
 import numpy as np
+from pathlib import Path
 
 class uImageBlueprint(object):
     imageTypeName = ""
@@ -148,9 +149,9 @@ class uImageBlueprint(object):
         self.imageTypeName = imageTypeName
         self.fileType = fileType
 
-    def processImage(self,fileName):
+    def processImage(self,imageFile,csvFile):
         try:
-            image = Image.open(fileName)
+            image = Image.open(imageFile)
         except FileNotFoundError:
             print("File not found.")
             return None
@@ -161,33 +162,59 @@ class uImageBlueprint(object):
         maxLength = 1
         counter = 0
 
-        with open('text.csv', "w") as csv_file:
-            writer = csv.writer(csv_file, delimiter=',')
-            for key in self.subSections:
-                csvHeaders.append(key)
 
-            writer.writerow(csvHeaders)
+        my_file = Path(csvFile)
+        if my_file.is_file():
+            print("File exists")
+            with open(csvFile, "a") as csv_file:
+                writer = csv.writer(csv_file, delimiter=',')
+                for key in self.subSections:
+                    csvHeaders.append(key)
 
-            for header in csvHeaders:
-                if (len(self.subSections[header]) > maxLength):
-                    maxLength = len(self.subSections[header])
-
-            while(counter < maxLength):
                 for header in csvHeaders:
-                    if(counter < len(self.subSections[header])):
-                        im3 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
-                        csvText.append(image_to_string(im3))
-                    else:
-                        csvText.append("")
-                writer.writerow(csvText)
-                csvText = []
-                counter = counter + 1
+                    if (len(self.subSections[header]) > maxLength):
+                        maxLength = len(self.subSections[header])
+
+                while(counter < maxLength):
+                    for header in csvHeaders:
+                        if(counter < len(self.subSections[header])):
+                            im3 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
+                            csvText.append(image_to_string(im3))
+                        else:
+                            csvText.append("")
+                    writer.writerow(csvText)
+                    csvText = []
+                    counter = counter + 1
+
+        else:
+            print("New file")
+            with open(csvFile, "w") as csv_file:
+                writer = csv.writer(csv_file, delimiter=',')
+                for key in self.subSections:
+                    csvHeaders.append(key)
+
+                writer.writerow(csvHeaders)
+
+                for header in csvHeaders:
+                    if (len(self.subSections[header]) > maxLength):
+                        maxLength = len(self.subSections[header])
+
+                while(counter < maxLength):
+                    for header in csvHeaders:
+                        if(counter < len(self.subSections[header])):
+                            im3 = image.crop((self.subSections[header][counter][0],self.subSections[header][counter][1],self.subSections[header][counter][2],self.subSections[header][counter][3]))
+                            csvText.append(image_to_string(im3))
+                        else:
+                            csvText.append("")
+                    writer.writerow(csvText)
+                    csvText = []
+                    counter = counter + 1
 
 test = uImageBlueprint("PASchedule","png")
-test.addSection([0,0,1,1],"bio")
-test.addSection([1,1,2,2],"bio")
+# test.addSection([0,0,1,1],"bio")
+# test.addSection([1,1,2,2],"bio")
 test.addSection([500,2271,989,2578],"comp sci")
-test.addSection([4,4,5,5],"mathClass")
+test.addSection([0,1325,495,1650],"mathClass")
 # processImage(test,"scheduletest.png")
 # print(test.subSections)
 
@@ -200,4 +227,4 @@ print(test.subSections)
 test.renameSection("bio","comp sci")
 print(test.subSections)
 print(test.getSectionText("comp sci","scheduletest.png",0))
-# test.processImage("scheduletest.png")
+test.processImage("scheduletest.png","text.csv")
