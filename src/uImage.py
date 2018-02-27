@@ -208,7 +208,7 @@ class uImageBlueprint(object):
                     csvText = []
                     counter = counter + 1
 
-    def readFolder(self,csvFile, path):
+    def processFolder(self,csvFile, path):
         folder = os.listdir( str(os.getcwd() + path) )
         for files in folder:
             if files[-(len(self.fileType)):] == self.fileType:
@@ -228,4 +228,4 @@ test.addSection([0,1325,495,1650],"mathClass")
 print(test.subSections)
 print(test.getSectionText("comp sci","scheduletest.png",0))
 test.processImage("scheduletest.png","text.csv")
-test.readFolder("newTest.csv", "/asdf")
+test.processFolder("newTest.csv", "")
