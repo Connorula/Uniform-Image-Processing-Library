@@ -149,9 +149,6 @@ This will process all the images in ./images according to the test uImageBluepri
 
 You're going to want to do a couple things to maximize the performance of the findSections and processImage/processFolder functions. Firstly, you'll want to use images with a DPI of at least 300. There are many ways to achieve this, and tutorials can be found online. Furthermore, you'll want to crop your image to fit as closely around the image's border as possible, as to limit the surrounding white space. Lastly, you must understand that it is not a perfect function, and will oftentimes require manual addition/removal of sections to achieve a satisfactory result.
 
-Status:
-Currently, I've created a blueprint object which holds all the subdivisions and their coordinates (called subsections) of the uniform image. I've also created a function which takes in the blueprint and an image file, which then processes the contents of each subsection and inputs them into a csv file (unfinished).
-
 ## Possible Changes:
 Feel free to add different functionalities to either the blueprint object or the processing function.
 - [ ] Add the ability to define which subsections correspond to headers and which correspond to the headers data.
