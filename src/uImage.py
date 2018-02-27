@@ -119,16 +119,20 @@ class uImageBlueprint(object):
 
         self.subSections = newSubSections
 
-    def renameSection(self, headerName, newHeaderName):
+    def renameSection(self, headerName, newHeaderName, index):
         try:
-            if newHeaderName not in self.subSections:
-                self.subSections[newHeaderName] = self.subSections.pop(headerName)
+            if (index == -1):
+                if newHeaderName not in self.subSections:
+                    self.subSections[newHeaderName] = self.subSections.pop(headerName)
+                else:
+                    for coord in self.subSections[headerName]:
+                        self.subSections[newHeaderName].append(coord)
+                    self.subSections.pop(headerName)
             else:
-                for coord in self.subSections[headerName]:
-                    self.subSections[newHeaderName].append(coord)
-                self.subSections.pop(headerName)
+                self.addSection(self.subSections[headerName].pop(index), newHeaderName)
         except KeyError:
             return None
+
 
     def getSectionText(self, headerName, fileName, index):
         try:
@@ -217,15 +221,16 @@ class uImageBlueprint(object):
                 self.processImage(str(os.getcwd() + path + "/" + files),csvFile)
 
 test = uImageBlueprint("PASchedule","png")
-# test.addSection([0,0,1,1],"bio")
-# test.addSection([1,1,2,2],"bio")
+test.addSection([0,0,1,1],"bio")
+test.addSection([1,1,2,2],"bio")
 test.addSection([500,2271,989,2578],"comp sci")
 test.addSection([0,1325,495,1650],"mathClass")
 # test.findSections("scheduletest.png",127,30000)
 # test.removeSection(["bio","comp sci"],[5])
 # print(test.subSections)
 # test.renameSection("bio","comp sci")
+test.renameSection("bio","comp sci", 1)
 print(test.subSections)
-print(test.getSectionText("comp sci","scheduletest.png",0))
-test.processImage("scheduletest.png","text.csv")
-test.processFolder("newTest.csv", "")
+# print(test.getSectionText("comp sci","scheduletest.png",0))
+# test.processImage("scheduletest.png","text.csv")
+# test.processFolder("newTest.csv", "")
