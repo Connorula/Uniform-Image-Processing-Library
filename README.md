@@ -146,6 +146,7 @@ This will process all the images in ./images according to the test uImageBluepri
 
 ## FAQs
 - findSections is not working for my image!
+
 You're going to want to do a couple things to maximize the performance of the findSections and processImage/processFolder functions. Firstly, you'll want to use images with a DPI of at least 300. There are many ways to achieve this, and tutorials can be found online. Furthermore, you'll want to crop your image to fit as closely around the image's border as possible, as to limit the surrounding white space. Lastly, you must understand that it is not a perfect function, and will oftentimes require manual addition/removal of sections to achieve a satisfactory result.
 
 Status:
