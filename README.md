@@ -16,6 +16,9 @@ pip install opencv-python
 ```
 It's a little complicated to install Tesseract on Macs, but [here's](http://benschmidt.org/dighist13/?page_id=129) a very simple and easy-to-follow guide (only go up to `brew install tesseract` in Step 3).
 
+## Installation
+If you wish to use the uImage library in your code, simply put `import uImage` at the top of your Python document. Make sure that *uImage.py* is in the same folder, however.
+
 ## Documentation
 ### `addSection(self, coordinates, name)`
 The addSection function adds a subsection with specified coordinates to the subsection dictionary under either a preexisting key or a new one.
