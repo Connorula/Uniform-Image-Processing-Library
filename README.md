@@ -102,7 +102,7 @@ N. Zufelt
 MORSEHL-103
 ```
 
-###`findSections(self,fileName,threshold,boxArea)`
+### `findSections(self,fileName,threshold,boxArea)`
 This function automatically finds the sections of an image, and adds them to the subSections dictionary of the uImageBlueprint object.
 * fileName: This parameter requires the fileName you wish to segment into sections. Note that if the file is not in the current directory, you must add the path to the fileName.
 * threshold: This parameter requires an integer, and determines which lines are considered contours.
@@ -119,7 +119,7 @@ This prints the following:
 {0: [[1984, 2584, 2473, 2895]], 1: [[500, 2584, 988, 2895]], 2: [[5, 2584, 494, 2895]], 3: [[1983, 2271, 2474, 2578]], 4: [[1489, 2271, 1978, 2579]], 5: [[994, 2272, 1484, 2895]], 6: [[500, 2271, 989, 2578]], 7: [[4, 2271, 495, 2578]], 8: [[1983, 1958, 2474, 2266]], 9: [[1489, 1958, 1978, 2266]], 10: [[994, 1958, 1484, 2266]], 11: [[500, 1958, 989, 2266]], 12: [[4, 1959, 495, 2265]], 13: [[1983, 1646, 2474, 1953]], 14: [[1489, 1646, 1978, 1953]], 15: [[993, 1647, 1485, 1952]], 16: [[500, 1646, 989, 1954]], 17: [[4, 1646, 495, 1953]], 18: [[1983, 1333, 2474, 1641]], 19: [[1489, 1333, 1978, 1641]], 20: [[993, 1333, 1485, 1641]], 21: [[500, 1333, 989, 1641]], 22: [[4, 1333, 495, 1641]], 23: [[1983, 1021, 2474, 1328]], 24: [[993, 1021, 1485, 1329]], 25: [[500, 1021, 988, 1328]], 26: [[4, 1021, 495, 1328]], 27: [[1489, 1021, 1979, 1328]], 28: [[1490, 709, 1978, 1016]], 29: [[1983, 708, 2474, 1016]], 30: [[993, 708, 1485, 1016]], 31: [[499, 709, 989, 1016]], 32: [[4, 708, 495, 1016]], 33: [[1983, 396, 2474, 704]], 34: [[1490, 396, 1978, 703]], 35: [[500, 396, 989, 704]], 36: [[4, 396, 495, 704]], 37: [[1983, 83, 2474, 391]], 38: [[1489, 83, 1979, 390]], 39: [[993, 84, 1485, 390]], 40: [[500, 83, 989, 391]], 41: [[4, 83, 495, 391]], 42: [[1984, 5, 2474, 77]], 43: [[1491, 4, 1978, 77]], 44: [[995, 4, 1484, 78]], 45: [[501, 4, 988, 78]], 46: [[4, 5, 494, 78]]}
 ```
 
-###`processImage(self,imageFile,csvFile)`
+### `processImage(self,imageFile,csvFile)`
 This function processes a single image using the corresponding uImageBlueprint, and stores the textual data of each section in a CSV file.
 * imageFile: This parameter requires the name of the image file you wish to process. If the file does not exist within the current directory, pass the file path instead.
 * csvFile: This parameter requires the name of the CSV file you wish to add the data to. If the CSV file already exists in the current directory, the data will be appended to the preexisting CSV's end. Otherwise, a new CSV file will be created under the parameter's name.
@@ -131,7 +131,7 @@ test.processImage("scheduletest.png","text.csv")
 ```
 This will write all the textual data within the sections of test of scheduletest.png into a CSV called *text.csv*.
 
-###`processFolder(self,csvFile, path)`
+### `processFolder(self,csvFile, path)`
 This function processes a folder of images using the corresponding uImageBlueprint, and stores all of their textual data into a CSV file.
 * csvFile: This parameter requires the name of the CSV file you wish to add the data to. If the CSV file already exists in the current directory, the data will be appended to the preexisting CSV's end. Otherwise, a new CSV file will be created under the parameter's name.
 * path: This parameter requires the path, relative to the current directory, of the folder containing the images. If the images are contained within the current directory, pass a blank string for path.
